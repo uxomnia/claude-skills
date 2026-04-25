@@ -1,0 +1,43 @@
+{
+  "_comment": "Exemple de config à merger dans .claude/settings.local.json (NE PAS écraser le fichier existant — fusionner les sections hooks et env). PLAN_STRATEGIQUE_OBSIDIAN_DIR est optionnel : ne le définis que si tu veux un miroir Obsidian.",
+  "env": {
+    "PLAN_STRATEGIQUE_OBSIDIAN_DIR": ""
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/plan-pre-warning.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/plan-post-journal.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/plan-stop-reminder.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}
